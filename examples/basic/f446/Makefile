@@ -105,9 +105,11 @@ C_DEFS =  \
 AS_INCLUDES = 
 
 # C includes
-C_INCLUDES =  \
+C_INCLUDES = \
 -I cmsis_device_f4/Include \
--I ../../../src
+-I ../../../src \
+-I . \
+-I cmsis_core/Include
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

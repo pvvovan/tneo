@@ -112,11 +112,11 @@ void task_a_body(void *par)
    //   (job for which task was created at all)
    for(;;)
    {
-      if (GPIOD->ODR & LED1){
-         GPIOD->BSRRH = LED1;
-      } else {
-         GPIOD->BSRRL = LED1;
-      }
+      // if (GPIOD->ODR & LED1){
+      //    GPIOD->BSRRH = LED1;
+      // } else {
+      //    GPIOD->BSRRL = LED1;
+      // }
 
       //printf("task a\n");
       tn_task_sleep(500);
@@ -128,11 +128,11 @@ void task_b_body(void *par)
 {
    for(;;)
    {
-      if (GPIOD->ODR & LED2){
-         GPIOD->BSRRH = LED2;
-      } else {
-         GPIOD->BSRRL = LED2;
-      }
+      // if (GPIOD->ODR & LED2){
+      //    GPIOD->BSRRH = LED2;
+      // } else {
+      //    GPIOD->BSRRL = LED2;
+      // }
 
       //printf("task b\n");
       tn_task_sleep(1000);
@@ -143,11 +143,11 @@ void task_c_body(void *par)
 {
    for(;;)
    {
-      if (GPIOD->ODR & LED3){
-         GPIOD->BSRRH = LED3;
-      } else {
-         GPIOD->BSRRL = LED3;
-      }
+      // if (GPIOD->ODR & LED3){
+      //    GPIOD->BSRRH = LED3;
+      // } else {
+      //    GPIOD->BSRRL = LED3;
+      // }
 
       //printf("task c\n");
       tn_task_sleep(1500);
@@ -170,26 +170,26 @@ void appl_init(void)
 {
    //-- configure LED port pins
    {
-      RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; // Enable Port D clock
+      // RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; // Enable Port D clock
 
       //-- Set pin 12, 13, 14, 15 as general purpose output mode (pull-push)
-      GPIOD->MODER |= (0
-            | GPIO_MODER_MODER12_0
-            | GPIO_MODER_MODER13_0
-            | GPIO_MODER_MODER14_0
-            | GPIO_MODER_MODER15_0
-            ) ;
+      // GPIOD->MODER |= (0
+      //       | GPIO_MODER_MODER12_0
+      //       | GPIO_MODER_MODER13_0
+      //       | GPIO_MODER_MODER14_0
+      //       | GPIO_MODER_MODER15_0
+      //       ) ;
 
       // GPIOD->OTYPER |= 0; //-- No need to change - use pull-push output
 
-      GPIOD->OSPEEDR |= (0
-            | GPIO_OSPEEDER_OSPEEDR12 // 100MHz operations
-            | GPIO_OSPEEDER_OSPEEDR13
-            | GPIO_OSPEEDER_OSPEEDR14
-            | GPIO_OSPEEDER_OSPEEDR15 
-            );
+      // GPIOD->OSPEEDR |= (0
+      //       | GPIO_OSPEEDER_OSPEEDR12 // 100MHz operations
+      //       | GPIO_OSPEEDER_OSPEEDR13
+      //       | GPIO_OSPEEDER_OSPEEDR14
+      //       | GPIO_OSPEEDER_OSPEEDR15 
+      //       );
 
-      GPIOD->PUPDR = 0; // No pull up, no pull down
+      // GPIOD->PUPDR = 0; // No pull up, no pull down
    }
 
    //-- initialize various on-board peripherals, such as
