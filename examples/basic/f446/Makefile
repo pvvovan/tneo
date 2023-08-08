@@ -134,7 +134,7 @@ LDSCRIPT = STM32F446RETx_FLASH.ld
 
 # libraries
 LIBS = -lc -lm -lnosys -l:tneo_cortex_m4f_arm-none-eabi-gcc.a
-LIBDIR = ../../../bin/cortex_m4f/arm-none-eabi-gcc
+LIBDIR = ../../../tnbin/cortex_m4f/arm-none-eabi-gcc
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) -L$(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
 # default action: build all
@@ -176,6 +176,7 @@ $(BUILD_DIR):
 #######################################
 clean:
 	-rm -fR $(BUILD_DIR)
+	$(MAKE) clean -C ../../../ TN_ARCH=cortex_m4f TN_COMPILER=arm-none-eabi-gcc
   
 #######################################
 # dependencies

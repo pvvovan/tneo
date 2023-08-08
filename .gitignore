@@ -41,3 +41,5 @@ tneo_cortex_m_iar/settings
 
 Makefile.deps
 
+tnbin
+tnlib

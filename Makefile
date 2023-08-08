@@ -1,7 +1,7 @@
 # This makefile accepts two params: TN_ARCH and TN_COMPILER. Both are mandatory.
 #
 #  TN_ARCH: the following values are valid:
-# 
+#
 #     cortex_m0
 #     cortex_m0plus
 #     cortex_m1
@@ -12,7 +12,7 @@
 #     pic32mx
 #
 #     pic24_dspic_noeds
-#     pic24_dspic_eds     
+#     pic24_dspic_eds
 #
 #  TN_COMPILER: depends on TN_ARCH.
 #     For cortex-m series, the following values are valid:
@@ -181,8 +181,8 @@ endif
 
 
 SOURCE_DIR     = src
-BIN_DIR        = bin/$(TN_ARCH)/$(TN_COMPILER)
-OBJ_DIR        = _obj/$(TN_ARCH)/$(TN_COMPILER)
+BIN_DIR        = tnbin/$(TN_ARCH)/$(TN_COMPILER)
+OBJ_DIR        = tnobj/$(TN_ARCH)/$(TN_COMPILER)
 
 CPPFLAGS = -I${SOURCE_DIR} -I${SOURCE_DIR}/core -I${SOURCE_DIR}/core/internal -I${SOURCE_DIR}/arch -I$(TN_CFG_DIR)
 
@@ -208,7 +208,7 @@ REDIRECT_CMD = | tee $(BUILD_LOG_FILE)
 
 
 # this rule is needed to redirect build log to a file
-all: 
+all:
 	mkdir -p $(BIN_DIR)
 	touch $(BUILD_LOG_FILE)
 	bash -c 'set -o pipefail; $(MAKE) all-actual $(REDIRECT_CMD)'
@@ -246,3 +246,6 @@ $(OBJ_DIR)/%.o : $(SOURCE_DIR)/arch/$(TN_ARCH_DIR)/%.S
 	$(CC) $(CPPFLAGS) $(ASFLAGS) -c -o $@ $<
 
 
+.PHONY: clean
+clean:
+	-rm -fR ./tnbin ./tnobj
