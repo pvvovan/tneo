@@ -32,10 +32,10 @@
 #
 #  Example invocation:
 #
-#     $ make TN_ARCH=cortex_m3 TN_COMPILER=arm-none-eabi-gcc
+#     $ make TN_ARCH=cortex_m4f TN_COMPILER=arm-none-eabi-gcc TN_CFG_DIR=examples/basic/f446
 #
 
-CFLAGS_COMMON = -Wall -Wunused-parameter -Werror -ffunction-sections -fdata-sections -g3 -Os
+CFLAGS_COMMON = -Wall -Wunused-parameter -ffunction-sections -fdata-sections -g3 -Os
 
 
 
@@ -184,7 +184,7 @@ SOURCE_DIR     = src
 BIN_DIR        = bin/$(TN_ARCH)/$(TN_COMPILER)
 OBJ_DIR        = _obj/$(TN_ARCH)/$(TN_COMPILER)
 
-CPPFLAGS = -I${SOURCE_DIR} -I${SOURCE_DIR}/core -I${SOURCE_DIR}/core/internal -I${SOURCE_DIR}/arch
+CPPFLAGS = -I${SOURCE_DIR} -I${SOURCE_DIR}/core -I${SOURCE_DIR}/core/internal -I${SOURCE_DIR}/arch -I$(TN_CFG_DIR)
 
 # get just all headers
 HEADERS  := $(shell find ${SOURCE_DIR}/ -name "*.h")
