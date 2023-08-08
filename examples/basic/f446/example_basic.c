@@ -9,7 +9,7 @@
 
 
 //-- system frequency
-#define SYS_FREQ           168000000L
+#define SYS_FREQ           16000000L
 
 //-- kernel ticks (system timer) frequency
 #define SYS_TMR_FREQ       1000
@@ -36,13 +36,6 @@
 #define TASK_B_PRIORITY    6
 #define TASK_C_PRIORITY    5
 
-
-
-
-#define LED0 (1 << 12)
-#define LED1 (1 << 13)
-#define LED2 (1 << 14)
-#define LED3 (1 << 15)
 
 
 /*******************************************************************************
@@ -110,15 +103,8 @@ void task_a_body(void *par)
 
    //-- and then, let's get to the primary job of the task
    //   (job for which task was created at all)
-   for(;;)
-   {
-      // if (GPIOD->ODR & LED1){
-      //    GPIOD->BSRRH = LED1;
-      // } else {
-      //    GPIOD->BSRRL = LED1;
-      // }
-
-      //printf("task a\n");
+   for ( ; ; ) {
+      printf("task a\n");
       tn_task_sleep(500);
 
    }
@@ -126,31 +112,20 @@ void task_a_body(void *par)
 
 void task_b_body(void *par)
 {
-   for(;;)
-   {
-      // if (GPIOD->ODR & LED2){
-      //    GPIOD->BSRRH = LED2;
-      // } else {
-      //    GPIOD->BSRRL = LED2;
-      // }
-
-      //printf("task b\n");
+   tn_task_sleep(500);
+   for ( ; ; ) {
+      GPIOA->BSRR = GPIO_BSRR_BS5;
+      printf("task b\n");
       tn_task_sleep(1000);
    }
 }
 
 void task_c_body(void *par)
 {
-   for(;;)
-   {
-      // if (GPIOD->ODR & LED3){
-      //    GPIOD->BSRRH = LED3;
-      // } else {
-      //    GPIOD->BSRRL = LED3;
-      // }
-
-      //printf("task c\n");
-      tn_task_sleep(1500);
+   for ( ; ; ) {
+      GPIOA->BSRR = GPIO_BSRR_BR5;
+      printf("task c\n");
+      tn_task_sleep(1000);
    }
 }
 
@@ -169,28 +144,12 @@ void hw_init(void)
 void appl_init(void)
 {
    //-- configure LED port pins
-   {
-      // RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN; // Enable Port D clock
+   RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN; // Enable Port A clock
 
-      //-- Set pin 12, 13, 14, 15 as general purpose output mode (pull-push)
-      // GPIOD->MODER |= (0
-      //       | GPIO_MODER_MODER12_0
-      //       | GPIO_MODER_MODER13_0
-      //       | GPIO_MODER_MODER14_0
-      //       | GPIO_MODER_MODER15_0
-      //       ) ;
+   //-- Set pin 5 as general purpose output mode (pull-push)
+   GPIOA->MODER |= GPIO_MODER_MODER5_0;
 
-      // GPIOD->OTYPER |= 0; //-- No need to change - use pull-push output
-
-      // GPIOD->OSPEEDR |= (0
-      //       | GPIO_OSPEEDER_OSPEEDR12 // 100MHz operations
-      //       | GPIO_OSPEEDER_OSPEEDR13
-      //       | GPIO_OSPEEDER_OSPEEDR14
-      //       | GPIO_OSPEEDER_OSPEEDR15 
-      //       );
-
-      // GPIOD->PUPDR = 0; // No pull up, no pull down
-   }
+   GPIOA->PUPDR = 0; // No pull up, no pull down
 
    //-- initialize various on-board peripherals, such as
    //   flash memory, displays, etc.
