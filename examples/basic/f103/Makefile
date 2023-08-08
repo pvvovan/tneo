@@ -2,12 +2,27 @@ TARGET = f103
 DEBUG = 1
 
 BUILD_DIR = build
+TN_DIR = ../../../src
 
 C_SOURCES = \
 Src/main.c \
+$(TN_DIR)/tn_app_check.c \
+$(TN_DIR)/core/tn_dqueue.c \
+$(TN_DIR)/core/tn_eventgrp.c \
+$(TN_DIR)/core/tn_fmem.c \
+$(TN_DIR)/core/tn_list.c \
+$(TN_DIR)/core/tn_mutex.c \
+$(TN_DIR)/core/tn_sem.c \
+$(TN_DIR)/core/tn_sys.c \
+$(TN_DIR)/core/tn_tasks.c \
+$(TN_DIR)/core/tn_timer.c \
+$(TN_DIR)/core/tn_timer_dyn.c \
+$(TN_DIR)/core/tn_timer_static.c \
+$(TN_DIR)/arch/cortex_m/tn_arch_cortex_m_c.c
 
 ASM_SOURCES = \
-cmsis_device_f1/Source/Templates/gcc/startup_stm32f103xb.s
+Src/startup_stm32f103xb.S \
+$(TN_DIR)/arch/cortex_m/tn_arch_cortex_m.S
 
 PREFIX = arm-none-eabi-
 # The gcc compiler bin path can be either defined in make command via GCC_PATH variable (> make GCC_PATH=xxx)
@@ -39,11 +54,18 @@ C_DEFS = \
 -D STM32F103xB
 
 # AS includes
-AS_INCLUDES =
+AS_INCLUDES = \
+-I Inc \
+-I ${TN_DIR} \
+-I ${TN_DIR}/core
 
 # C includes
 C_INCLUDES = \
--I Inc
+-I Inc \
+-I ${TN_DIR} \
+-I ${TN_DIR}/core \
+-I ${TN_DIR}/arch \
+-I ${TN_DIR}/core/internal
 
 ifeq ($(DEBUG), 1)
 OPT = -O0 -g3 -gdwarf-5
@@ -77,16 +99,16 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 # list of ASM program objects
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
-vpath %.s $(sort $(dir $(ASM_SOURCES)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.S=.o)))
+vpath %.S $(sort $(dir $(ASM_SOURCES)))
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
 
-$(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR)
 	$(AS) -c $(ASFLAGS) $< -o $@
 
-$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) FORCE
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS)
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	$(SZ) $@
 
@@ -99,9 +121,6 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 $(BUILD_DIR):
 	mkdir $@
 
-
-.PHOHY:
-FORCE:
 
 #######################################
 # clean up
