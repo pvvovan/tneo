@@ -158,6 +158,7 @@ $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+	$(MAKE) -C ../../../ TN_ARCH=cortex_m4f TN_COMPILER=arm-none-eabi-gcc TN_CFG_DIR=examples/basic/f446
 	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 	$(SZ) $@
 
