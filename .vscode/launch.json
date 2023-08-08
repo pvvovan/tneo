@@ -5,9 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Cortex Debug",
+            "name": "stlink-f446",
             "cwd": "${workspaceFolder}",
             "executable": "./examples/basic/f446/build/f446_t1.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "stlink",
+            "gdbPath": "gdb-multiarch"
+        },
+        {
+            "name": "stlink-f103",
+            "cwd": "${workspaceFolder}",
+            "executable": "./examples/basic/f103/build/f103.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
