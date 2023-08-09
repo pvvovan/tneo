@@ -286,7 +286,7 @@ _TN_STATIC_INLINE TN_BOOL _remove_entry_from_ready_queue(
 
    if (ret){
       //-- list is empty, so, modify bitmask _tn_ready_to_run_bmp
-      _tn_ready_to_run_bmp &= ~(1 << priority);
+      _tn_ready_to_run_bmp &= (unsigned int)(~(1 << priority));
    }
 
    return ret;
