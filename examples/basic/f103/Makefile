@@ -75,11 +75,11 @@ else
 OPT = -O2 -g0
 endif
 
-COMMON_FLAGS = -Wall -Wextra -fdata-sections -ffunction-sections
+COMMON_FLAGS = -Wall -Wextra -fdata-sections -ffunction-sections -Wsign-conversion -Wconversion
 CSTD = -std=c99 -Wpedantic
 
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) $(COMMON_FLAGS)
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) $(CSTD) $(COMMON_FLAGS) -Wsign-conversion -Wconversion
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) $(CSTD) $(COMMON_FLAGS)
 
 # Generate dependency information
 CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"

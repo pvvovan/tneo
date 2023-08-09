@@ -163,12 +163,12 @@
  * On M0/M0+ there's no need to store EXC_RETURN in the task context, but if
  * there is some on-context-switch handler, then we should save/restore LR on
  * MSP during context switch.
- */
+ *
 #define     _TN_NEED_SAVE_LR()      (                                         \
       !defined(__TN_ARCHFEAT_CORTEX_M_ARMv7M_ISA__)                           \
       && _TN_ON_CONTEXT_SWITCH_HANDLER                                        \
       )
-
+*/
 
 
 
@@ -300,7 +300,8 @@ _TN_THUMB_FUNC()
 _TN_LABEL(PendSV_Handler)
 
       //-- Save LR if needed (see comment for macro _TN_NEED_SAVE_LR())
-#if _TN_NEED_SAVE_LR()
+//#if _TN_NEED_SAVE_LR()
+#if (!defined(__TN_ARCHFEAT_CORTEX_M_ARMv7M_ISA__) && _TN_ON_CONTEXT_SWITCH_HANDLER)
       push     {lr}
 #endif
 
@@ -397,7 +398,8 @@ _TN_LOCAL_LABEL(__context_restore)  //-- if you branch here, r4 should be _tn_cu
       cpsie    i              //-- enable core int
 
       //-- Restore LR if needed (see comment for macro _TN_NEED_SAVE_LR())
-#if _TN_NEED_SAVE_LR()
+//#if _TN_NEED_SAVE_LR()
+#if (!defined(__TN_ARCHFEAT_CORTEX_M_ARMv7M_ISA__) && _TN_ON_CONTEXT_SWITCH_HANDLER)
       pop      {r0}
       mov      lr, r0
 #endif
@@ -486,7 +488,8 @@ _TN_LABEL(SVC_Handler)
       //   so, we don't check params.
 
       //-- Save LR if needed (see comment for macro _TN_NEED_SAVE_LR())
-#if _TN_NEED_SAVE_LR()
+//#if _TN_NEED_SAVE_LR()
+#if (!defined(__TN_ARCHFEAT_CORTEX_M_ARMv7M_ISA__) && _TN_ON_CONTEXT_SWITCH_HANDLER)
       push     {lr}
 #endif
 
