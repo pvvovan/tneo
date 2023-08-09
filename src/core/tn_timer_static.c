@@ -261,7 +261,7 @@ enum TN_RCode _tn_timer_start(struct TN_Timer *timer, TN_TickCnt timeout)
 
          if (timeout < TN_TICK_LISTS_CNT){
             //-- timer should be added to the one of "tick" lists.
-            int tick_list_index = _TICK_LIST_INDEX(timeout);
+            TN_TickCnt tick_list_index = _TICK_LIST_INDEX(timeout);
             timer->timeout_cur = tick_list_index;
 
             _tn_list_add_tail(

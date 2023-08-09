@@ -568,7 +568,7 @@ enum TN_RCode tn_task_create_wname(
       TN_TaskBody            *task_func,
       int                     priority,
       TN_UWord               *task_stack_low_addr,
-      int                     task_stack_size,
+      unsigned int            task_stack_size,
       void                   *param,
       enum TN_TaskCreateOpt   opts,
       const char             *name
