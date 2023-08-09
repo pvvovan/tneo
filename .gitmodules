@@ -1,9 +1,9 @@
 [submodule "examples/basic/f446/cmsis_device_f4"]
 	path = examples/basic/f446/cmsis_device_f4
 	url = https://github.com/STMicroelectronics/cmsis_device_f4.git
-[submodule "examples/basic/f446/cmsis_core"]
-	path = examples/basic/f446/cmsis_core
-	url = https://github.com/STMicroelectronics/cmsis_core.git
 [submodule "examples/basic/f103/cmsis_device_f1"]
 	path = examples/basic/f103/cmsis_device_f1
 	url = https://github.com/STMicroelectronics/cmsis_device_f1.git
+[submodule "examples/basic/cmsis_core"]
+	path = examples/basic/cmsis_core
+	url = https://github.com/STMicroelectronics/cmsis_core.git

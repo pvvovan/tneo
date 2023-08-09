@@ -63,7 +63,7 @@ AS_INCLUDES = \
 C_INCLUDES = \
 -I Inc \
 -I cmsis_device_f1/Include \
--I ../f446/cmsis_core/Include \
+-I ../cmsis_core/Include \
 -I ${TN_DIR} \
 -I ${TN_DIR}/core \
 -I ${TN_DIR}/arch \
