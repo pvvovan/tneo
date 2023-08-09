@@ -405,7 +405,7 @@ struct TN_Task {
    //TN_TickCnt tick_count;
    ///
    /// time slice counter
-   int tslice_count;
+   unsigned int tslice_count;
 #if 0
    ///
    /// last operation result code, might be used if some service

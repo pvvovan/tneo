@@ -137,7 +137,7 @@ TN_CBStackOverflow *_tn_cb_stack_overflow = TN_NULL;
 TN_CBDeadlock *_tn_cb_deadlock = TN_NULL;
 
 /// Time slice values for each available priority, in system ticks.
-unsigned short _tn_tslice_ticks[TN_PRIORITIES_CNT];
+unsigned int _tn_tslice_ticks[TN_PRIORITIES_CNT];
 
 #if TN_MUTEX_DEADLOCK_DETECT
 /// Number of deadlocks active at the moment. Normally it is equal to 0.
@@ -655,7 +655,7 @@ enum TN_RCode tn_sys_tslice_set(int priority, int ticks)
       TN_INTSAVE_DATA;
 
       TN_INT_DIS_SAVE();
-      _tn_tslice_ticks[priority] = ticks;
+      _tn_tslice_ticks[priority] = (unsigned int)ticks;
       TN_INT_RESTORE();
    }
    return rc;

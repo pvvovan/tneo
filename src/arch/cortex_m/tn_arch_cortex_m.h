@@ -94,7 +94,7 @@ extern "C"  {     /*}*/
  * May be not defined: in this case, naive algorithm will be used.
  */
 #define  _TN_FFS(x)     ffs_asm(x)
-int ffs_asm(int x);
+int ffs_asm(unsigned int x);
 #endif
 
 /**
