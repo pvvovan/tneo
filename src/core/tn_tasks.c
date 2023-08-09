@@ -418,7 +418,7 @@ enum TN_RCode tn_task_create(
    enum TN_RCode rc;
    enum TN_Context context;
 
-   int i;
+   unsigned int i;
 
    //-- Lightweight checking of system tasks recreation
    if (     priority == (TN_PRIORITIES_CNT - 1)
